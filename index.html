@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+
+<head>
+    <title>TraViZ test</title>
+    <script type="text/javascript" src="scripts/traviz-min.js"></script>
+    <script src="scripts/input-processor.js"></script>
+</head>
+
+<body>
+    <div id="title">
+        <h2>TRAViz - Simple UI</h2>
+    </div>
+    <div id="inputForm">
+        <form id="TRAVizInput" onsubmit="genTraviz()" action="javacript:void()">
+            <div>
+                <label for="normalize">Normalize: </label>
+                <input type="checkbox" id="normalize" name="normalize" checked>
+            </div>
+            <div>
+                <label for="linebreaks">Linebreaks: </label>
+                <input type="checkbox" name="linebreaks" id="linebreaks" checked>
+            </div>
+            <div>
+                <label for="rtl">Right-to-Left: </label>
+                <input type="checkbox" id="rtl" name="rtl">
+            </div>
+            <div>
+                <label for="startAndEnd">Show Start and End nodes: </label><input type="checkbox" id="startAndEnd"
+                    name="startAndEnd" checked>
+            </div>
+            <div>
+                <label for="files">Select files: </label>
+                <input type="file" id="files" name="files[]" accept="text/txt" multiple>
+            </div>
+            <div><input type="submit"></div>
+        </form>
+    </div>
+    <div id="divTravizContainer"></div>
+</body>
+
+</html>
