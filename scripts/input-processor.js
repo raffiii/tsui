@@ -26,14 +26,8 @@ function genTraviz() {
         }
     }
     var traviz = new TRAViz('divTravizContainer', config);
-    if (files.length >= 2) {
-        worker.postMessage([traviz, files]);
-    }
-    worker.onmessage = function (e) {
-        var result = e.data[0]
-        result.prototype = traviz.prototype;
-        result.visualize();
-        result.graph.printVertices();
-    }
+    traviz.align(files);
+    traviz.visualize();
+    traviz.graph.printVertices();
 
 }
