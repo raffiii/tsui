@@ -1,16 +1,4 @@
-var blob = new Blob([
-    "onmessage = function (e) {"
-    + "console.log('start');"
-    + "var traviz = e.data[0];"
-    + "var files = e.data[1];"
-    + "traviz.align(files);"
-    + "postMessage(traviz);"
-    + "};"]);
-
-// Obtain a blob URL reference to our worker 'file'.
-var blobURL = window.URL.createObjectURL(blob);
-
-var worker = new Worker(blobURL);
+var worker = new Worker("scripts/worker.js");
 function genTraviz() {
     var config = {
         normalize: document.getElementById("normalize").checked,
@@ -42,9 +30,10 @@ function genTraviz() {
         worker.postMessage([traviz, files]);
     }
     worker.onmessage = function (e) {
-        var traviz = e.data[0]
-        traviz.visualize();
-        traviz.graph.printVertices();
+        var result = e.data[0]
+        result.prototype = traviz.prototype;
+        result.visualize();
+        result.graph.printVertices();
     }
 
 }
