@@ -1,4 +1,4 @@
-importScripts("scripts/traviz.js");
+importScripts("traviz.js");
 onmessage = function (e) {
     console.log("start");
     var traviz = e.data[0];
