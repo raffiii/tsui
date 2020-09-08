@@ -1,11 +1,24 @@
 var worker = new Worker("scripts/worker.js");
-async function genTraviz() {
-    var config = {
+
+worker.onmessage = e => {
+    let config = e.data[1];
+    let traviz = new TRAViz(config);
+    $.extend(traviz,e.data[0]);
+    traviz.visualize();
+    traviz.graph.printVertices();
+
+}
+function readConfig(){
+    return {
         normalize: document.getElementById("normalize").checked,
         lineBreaks: document.getElementById("linebreaks").checked,
         rtl: document.getElementById("rtl").checked,
         startAndEnd: document.getElementById("startAndEnd").checked,
     };
+}
+
+async function genTraviz() {
+    var config = readConfig();
     var x = document.getElementById("files");
     var files = [];
     if ('files' in x) {
@@ -21,11 +34,10 @@ async function genTraviz() {
         }
     }
     var traviz = new TRAViz('divTravizContainer', config);
-    traviz.align(files);
-    traviz.visualize();
-    traviz.graph.printVertices();
+    worker.postMessage([traviz,files,config])
 
 }
+
 
 function readFileAsync(file) {
     return new Promise((resolve, reject) => {
