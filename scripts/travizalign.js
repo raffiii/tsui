@@ -2970,3 +2970,50 @@ TRAVizConfig.prototype.getColors = function(num){
 	}
 	return colors;
 };
+function TRAVizConfig(options) {
+
+	this.options = {
+
+		/* General */
+		colors: [ "red", "blue", "green", "rgb(230,230,0)", "orange",
+                      "#996600", "purple", "#FF00FF", "#66FFFF", "#339999" ], // colors used to identify the various edition flows		
+		normalize: true, // if the sentences shall be normalized or not (remove special characters)
+		lineBreaks: true, // if line breaks are allowed or not (if true, only the width of the given div is used)
+		lineNumbering: true, // if line numbers are shown when lineBreaks are used
+		lineNumberingText: "Line ", // text of line numbers
+		rtl: false, // if labels should be drawn from right to left (for arabic, hebrew)
+		popupLabel: "occurrences", // header label to be shown in the popup window
+		optimizedAlignment: true, // computes a better alignment at the expense of runtime
+		editionLabels: true, // if edition labels are shown in a popup when hovering edges
+
+		/* Text Vertices */		
+		baseColor: '#3E576F', // color used for text and joined connections		
+		vertexBackground: 'rgba(242,242,242,0.75)', // false or a CSS color for the text backgrounds		
+		font: 'Georgia', // text font		
+		startAndEnd: true, // if start and end vertex are shown and linked to all paths
+		collapseLabels: 0, // text labels are only shown for vertices with more than the given value
+		interpolateFontSize: false, // if true, the font size of the vertices is interpolated between 'fontSizeMin' and 'fontSizeMax'
+		fontSizeMin: 10, // minimum font size
+		fontSizeMax: 50, // maximum font size
+		fontSizeIncrease: 4, // the number of pixels the labels grow by edition if interpolateFontSize = false
+		
+		/* Connections */
+		edgeGap: 5, // minimum gap between two connections; required when adjusting the connections horizontally and vertically		
+		curveRadius: 10, // radius of the curves
+		connectionType: 'all', // how the connections shall be displayed: 
+						// 'all' for displaying each individual stream, 
+						// 'joined' to merge all parallel connections, or 
+						// 'majority' to merge only if more than half of the edges are routed between the same vertices
+		majorityPercentage: 0.5, // an edge becomes a majority edge when the given percentage of editions passes it
+
+		editDistance: false, // false (or 0) if only exact matches between two words shall be merged or edit distance dependent on the word lengths computed with the formula 2*editDistance/(|word1|+|word2|)
+
+		splitAndMerge: true, // if the user is allowed to interactively split vertices or merge via drag&drop
+
+		transpositions: true, // if transpositions shall be determined and visualized on mouseover
+
+	};
+    for (const [key, value] of Object.entries(options)){
+        this.options[key] = value;
+    }
+};
