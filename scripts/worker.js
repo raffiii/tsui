@@ -1,10 +1,10 @@
 importScripts("travizalign.js");
 onmessage = function (e) {
     console.log("start");
-    var traviz = new TRAViz("",{});
+    var traviz = new TRAViz("", e.data[2]);
     var files = e.data[1];
 
-    for (const [key, value] of Object.entries(e.data[0])){
+    for (const [key, value] of Object.entries(e.data[0])) {
         traviz[key] = value;
     }
     traviz.prototype = TRAViz.prototype;
