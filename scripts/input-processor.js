@@ -17,11 +17,13 @@ function genTraviz() {
                 files.push({});
                 files[files.length - 1].edition = 'name' in file ? file.name : "No" + i;
                 var reader = new FileReader();
+                var waiting = true;
                 reader.onload = function (event) {
                     files[files.length - 1].text = event.target.result;
+                    waiting = false;
                 };
                 reader.readAsText(file);
-                while (!'text' in files[files.length - 1]) { }
+                while (waiting) { }
             }
         }
     }
