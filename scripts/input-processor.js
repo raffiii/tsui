@@ -1,5 +1,5 @@
 var worker = new Worker("scripts/worker.js");
-function genTraviz() {
+async function genTraviz() {
     var config = {
         normalize: document.getElementById("normalize").checked,
         lineBreaks: document.getElementById("linebreaks").checked,
@@ -13,17 +13,10 @@ function genTraviz() {
             alert("Select one or more files.");
         } else {
             for (var i = 0; i < x.files.length; i++) {
-                var file = x.files[i];
+                let file = x.files[i];
                 files.push({});
                 files[files.length - 1].edition = 'name' in file ? file.name : "No" + i;
-                var reader = new FileReader();
-                var waiting = true;
-                reader.onload = function (event) {
-                    files[files.length - 1].text = event.target.result;
-                    waiting = false;
-                };
-                reader.readAsText(file);
-                while (waiting) { }
+                files[files.length - 1].text = await readFileAsync(file);
             }
         }
     }
@@ -32,4 +25,15 @@ function genTraviz() {
     traviz.visualize();
     traviz.graph.printVertices();
 
+}
+
+function readFileAsync(file) {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+            resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsText(file);
+    })
 }
