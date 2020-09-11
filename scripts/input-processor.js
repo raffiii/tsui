@@ -1,7 +1,7 @@
 var worker = new Worker("scripts/worker.js");
 
 worker.onmessage = e => {
-    let config = e.data[1];
+    let config = new TRAVizConfig(e.data[1]);
     let traviz = new TRAViz(config);
     $.extend(traviz,e.data[0]);
     traviz.visualize();
