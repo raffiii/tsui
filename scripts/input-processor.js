@@ -4,8 +4,9 @@ worker.onmessage = e => {
     let data = e.data[0]
     let traviz = new TRAViz(data.config);
     $.extend(traviz, data.traviz);
+    correctGraph(traviz.graph);
     traviz.visualizeNoAligner(data.paths);
-
+    
 }
 
 function correctGraph(graph) {
