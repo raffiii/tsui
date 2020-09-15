@@ -7,6 +7,29 @@ worker.onmessage = e => {
     traviz.visualizeNoAligner(data.paths);
 
 }
+
+function correctGraph(graph) {
+    // Graph
+    graph.getVertex = TRAVizGraph.prototype.getVertex;
+    graph.removeVertex = TRAVizGraph.prototype.removeVertex;
+    graph.addVertex = TRAVizGraph.prototype.addVertex;
+    graph.clone = TRAVizGraph.prototype.clone;
+    graph.isAcyclicFromVertex = TRAVizGraph.prototype.isAcyclicFromVertex;
+    graph.isAcyclic = TRAVizGraph.prototype.isAcyclicisAcyclic;
+    graph.printVertices = TRAVizGraph.prototype.printVertices;
+
+    // Vertices
+    for(vertex in graph.vertices){
+        vertex.removeSuccessor = TRAVizVertex.prototype.removeSuccessor;
+        vertex.removePredecessor = TRAVizVertex.prototype.removePredecessor;
+        vertex.addSuccessor = TRAVizVertex.prototype.addSuccessor;
+        vertex.addPredecessor = TRAVizVertex.prototype.addPredecessor;
+    }
+
+    // Connections
+    for(connection in graph.)
+}
+
 function readConfig() {
     return {
         normalize: document.getElementById("normalize").checked,
