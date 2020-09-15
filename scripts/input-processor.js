@@ -25,9 +25,6 @@ function correctGraph(graph) {
         vertex.addSuccessor = TRAVizVertex.prototype.addSuccessor;
         vertex.addPredecessor = TRAVizVertex.prototype.addPredecessor;
     }
-
-    // Connections
-    for(connection in graph.)
 }
 
 function readConfig() {
