@@ -1,14 +1,13 @@
 var worker = new Worker("scripts/worker.js");
 
 worker.onmessage = e => {
-    let config = e.data[1];
-    let traviz = new TRAViz(config);
-    $.extend(traviz,e.data[0]);
-    traviz.visualize();
-    traviz.graph.printVertices();
+    let data = e.data[0]
+    let traviz = new TRAViz(data.config);
+    $.extend(traviz, data.traviz);
+    traviz.visualizeNoAligner(data.paths);
 
 }
-function readConfig(){
+function readConfig() {
     return {
         normalize: document.getElementById("normalize").checked,
         lineBreaks: document.getElementById("linebreaks").checked,
@@ -34,7 +33,11 @@ async function genTraviz() {
         }
     }
     var traviz = new TRAViz('divTravizContainer', config);
-    worker.postMessage([traviz,files,config])
+    worker.postMessage([{ 
+        "traviz": traviz, 
+        "files": files, 
+        "config": config
+    }]);
 
 }
 

@@ -1,13 +1,24 @@
 importScripts("travizalign.js");
 onmessage = function (e) {
     console.log("start");
-    var traviz = new TRAViz("", e.data[2]);
-    var files = e.data[1];
+    let data = e.data[0];
+    let traviz = new TRAViz("", data.config);
+    let files = data.files;
 
-    for (const [key, value] of Object.entries(e.data[0])) {
+    let entries = Object.getOwnPropertyNames(e.data[0]);
+    const index = entries.indexOf("config");
+    if (index > -1) {
+        entries.splice(index, 1);
+    }
+    for (const [key, value] of entries) {
         traviz[key] = value;
     }
     traviz.prototype = TRAViz.prototype;
     traviz.align(files);
-    postMessage([traviz, e.data[2]]);
+    var paths = this.aligner.getPathsByEdition(this.sentencePathHash[this.mainBranch], this.sentencePaths);
+    postMessage([{
+        "traviz": traviz,
+        "config": data.config,
+        "paths": paths
+    }]);
 }
