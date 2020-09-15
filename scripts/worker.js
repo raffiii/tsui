@@ -5,7 +5,10 @@ onmessage = function (e) {
     let traviz = new TRAViz("", data.config);
 
     traviz.align(data.files);
-    var paths = this.aligner.getPathsByEdition(this.sentencePathHash[this.mainBranch], this.sentencePaths);
+    var paths = traviz.aligner.getPathsByEdition(
+        traviz.sentencePathHash[traviz.mainBranch],
+        traviz.sentencePaths
+    );
     postMessage([{
         "traviz": traviz,
         "config": data.config,
